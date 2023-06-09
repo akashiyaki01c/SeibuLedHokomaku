@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西武方向幕</title>
+    <link rel="stylesheet" href="lib/led.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div id="t"></div>
+        <div id="d"></div>
+    </main>
+    <input type="text" name="type" id="type" value="00" min="00" max="99">
+    <input type="text" name="dest" id="dest" value="00" min="00" max="999">
+    <button id="update">更新</button>
+    <script src="./lib/led.js"></script>
+    <script>
+        const TYPE_WIDTH = 96;
+        const TYPE_HEIGHT = 32;
+        const DEST_WIDTH = 96;
+        const DEST_HEIGHT = 32;
+        const SCALE = 5;
+
+        document.getElementById("update").onclick = (event) => {
+            let Type = new LedDisplay("t", "./西武_方向幕.png", TYPE_WIDTH, TYPE_HEIGHT, 0, 32, SCALE);
+            let Dest = new LedDisplay("d", "./西武_方向幕.png", DEST_WIDTH, DEST_HEIGHT, 96, 32, SCALE);
+            let typeId = Number.parseInt(document.getElementById("type").value);
+            let destIdX = Number.parseInt(document.getElementById("dest").value.substring(0, 1));
+            let destIdY = Number.parseInt(document.getElementById("dest").value.substring(1));
+            Type.update(0, typeId);
+            Dest.update(destIdX, destIdY);
+        };
+        window.addEventListener('load', function(){
+			document.getElementById("update").onclick();
+		});
+    </script>
+</body>
+</html>

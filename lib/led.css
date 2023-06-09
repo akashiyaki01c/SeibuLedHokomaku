@@ -1,0 +1,24 @@
+
+.led-root {
+    display: inline-block;
+}
+
+.led-outer {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+.led-inner {
+    position: absolute;
+    image-rendering: pixelated;
+    transform-origin: top left;
+}
+
+.ami {
+    position: absolute;
+    background-image: url(./ami.png);
+    height: 160px;
+    width: 480px;
+    image-rendering: pixelated;
+    transform-origin: top left;
+}
