@@ -13,9 +13,11 @@
         <div id="t"></div>
         <div id="d"></div>
     </main>
-    <input type="text" name="type" id="type" value="00" min="00" max="99">
-    <input type="text" name="dest" id="dest" value="00" min="00" max="999">
-    <button id="update">更新</button>
+    <!-- <input type="text" name="type" id="type" value="00" min="00" max="99"> -->
+    <!-- <input type="text" name="dest" id="dest" value="00" min="00" max="999"> -->
+    <select id="type-select"></select>
+    <select id="dest-select"></select>
+    <script src="./select.js"></script>
     <script src="./lib/led.js"></script>
     <script>
         const TYPE_WIDTH = 96;
@@ -23,19 +25,18 @@
         const DEST_WIDTH = 96;
         const DEST_HEIGHT = 32;
         const SCALE = 5;
+        let Type = new LedDisplay("t", "./西武_方向幕.png", TYPE_WIDTH, TYPE_HEIGHT, 0, 32, SCALE);
+        let Dest = new LedDisplay("d", "./西武_方向幕.png", DEST_WIDTH, DEST_HEIGHT, 96, 32, SCALE);
 
-        document.getElementById("update").onclick = (event) => {
-            let Type = new LedDisplay("t", "./西武_方向幕.png", TYPE_WIDTH, TYPE_HEIGHT, 0, 32, SCALE);
-            let Dest = new LedDisplay("d", "./西武_方向幕.png", DEST_WIDTH, DEST_HEIGHT, 96, 32, SCALE);
-            let typeId = Number.parseInt(document.getElementById("type").value);
-            let destIdX = Number.parseInt(document.getElementById("dest").value.substring(0, 1));
-            let destIdY = Number.parseInt(document.getElementById("dest").value.substring(1));
+        document.getElementById("type-select").onchange = (event) => {
+            let typeId = Number.parseInt(document.getElementById("type-select").value);
             Type.update(0, typeId);
+        }
+        document.getElementById("dest-select").onchange = (event) => {
+            let destIdX = Number.parseInt(document.getElementById("dest-select").value.substring(0, 1));
+            let destIdY = Number.parseInt(document.getElementById("dest-select").value.substring(1));
             Dest.update(destIdX, destIdY);
-        };
-        window.addEventListener('load', function(){
-			document.getElementById("update").onclick();
-		});
+        }
     </script>
 </body>
 </html>
