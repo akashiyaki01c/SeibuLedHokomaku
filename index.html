@@ -45,8 +45,14 @@
         <div id="d120"></div>
     </main>
     <div class="inputs">
-        <select id="type-select"></select>
-        <select id="dest-select"></select>
+        <div class="type">
+            <span id="type-select-before" class="select-before">00</span>
+            <select id="type-select"></select>
+        </div>
+        <div class="dest">
+            <span id="dest-select-before" class="select-before">000</span>
+            <select id="dest-select"></select>
+        </div>
     </div>
     <footer>(c) akashiyaki01c</footer>
 
@@ -84,22 +90,16 @@
             new LedDisplay("30000-side-dest",  "./dest.png", 96, HEIGHT, OFFSET["d96n"], 0, SCALE),
         ];
 
-        /* const type48 = new LedDisplay("t48", "./led.png", 48, HEIGHT, 0, 0, SCALE);
-        const type64 = new LedDisplay("t64", "./led.png", 64, HEIGHT, 48, 0, SCALE);
-        const type96 = new LedDisplay("t96", "./led.png", 96, HEIGHT, 112, 0, SCALE);
-        const dest80 = new LedDisplay("d80", "./led.png", 80, HEIGHT, 208, 0, SCALE);
-        const dest96a = new LedDisplay("d96a", "./led.png", 96, HEIGHT, 1008, 0, SCALE);
-        const dest96b = new LedDisplay("d96b", "./led.png", 96, HEIGHT, 1968, 0, SCALE);
-        const dest120 = new LedDisplay("d120", "./led.png", 120, HEIGHT, 2928, 0, SCALE); */
-
-
         document.getElementById("type-select").onchange = (event) => {
-            let typeId = Number.parseInt(document.getElementById("type-select").value);
-            types.forEach(t => t.update(0, typeId));
+            let typeId = document.getElementById("type-select").value;
+            document.getElementById("type-select-before").innerText = typeId;
+            types.forEach(t => t.update(0, Number.parseInt(typeId)));
         }
         document.getElementById("dest-select").onchange = (event) => {
-            let destIdX = Number.parseInt(document.getElementById("dest-select").value.substring(0, 1));
-            let destIdY = Number.parseInt(document.getElementById("dest-select").value.substring(1));
+            let destId = document.getElementById("dest-select").value;
+            document.getElementById("dest-select-before").innerText = destId;
+            let destIdX = Number.parseInt(destId.substring(0, 1));
+            let destIdY = Number.parseInt(destId.substring(1));
             dests.forEach(t => t.update(destIdX, destIdY));
         }
     </script>

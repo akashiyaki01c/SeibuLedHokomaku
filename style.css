@@ -8,3 +8,13 @@ main > div {
 .inputs {
 	margin-top: 1em;
 }
+select::before {
+	content: attr(data-id);
+}
+.select-before {
+	display: inline-block;
+	font-family: monospace;
+	background-color: var(--input-fg);
+	border: 2px solid var(--input-fg);
+	color: var(--input-bg);
+}
