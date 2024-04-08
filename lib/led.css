@@ -7,6 +7,7 @@
     display: inline-block;
     position: relative;
     overflow: hidden;
+    background-color: #f0f;
 }
 .led-inner {
     position: absolute;
@@ -17,8 +18,9 @@
 .ami {
     position: absolute;
     background-image: url(./ami.png);
-    height: 160px;
-    width: 480px;
+    background-repeat: repeat;
+    height: 100%;
+    width: 100%;
     image-rendering: pixelated;
     transform-origin: top left;
 }

@@ -2,40 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>西武方向幕</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>西武LED方向幕</title>
+	<meta name="robots" content="noindex">
+	<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+	<link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="lib/led.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+		<h1>西武LED方向幕</h1>
+		<div> / <a href="/">ホーム</a> / 西武LED方向幕</div>
+	</header>
     <main>
-        <div id="t"></div>
-        <div id="d"></div>
+        <div class="40000-front">
+            <div id="40000-front-type"></div>
+            <div id="40000-front-dest"></div>
+        </div>
+        <div class="40000-side">
+            <div id="40000-side-type"></div>
+            <div id="40000-side-dest"></div>
+        </div>
+        <div class="30000-front">
+            <div id="30000-front-type"></div>
+            <div id="30000-front-dest"></div>
+        </div>
+        <div class="30000-side">
+            <div id="30000-side-type"></div>
+            <div id="30000-side-dest"></div>
+        </div>
+        <div class="20000-front">
+            <div id="20000-front-type"></div>
+            <div id="20000-front-dest"></div>
+        </div>
+        <div id="t48"></div>
+        <div id="t64"></div>
+        <div id="t96"></div>
+        <div id="d80"></div>
+        <div id="d96a"></div>
+        <div id="d96b"></div>
+        <div id="d120"></div>
     </main>
-    <!-- <input type="text" name="type" id="type" value="00" min="00" max="99"> -->
-    <!-- <input type="text" name="dest" id="dest" value="00" min="00" max="999"> -->
-    <select id="type-select"></select>
-    <select id="dest-select"></select>
+    <div class="inputs">
+        <select id="type-select"></select>
+        <select id="dest-select"></select>
+    </div>
+    <footer>(c) akashiyaki01c</footer>
+
     <script src="./select.js"></script>
     <script src="./lib/led.js"></script>
     <script>
-        const TYPE_WIDTH = 96;
-        const TYPE_HEIGHT = 32;
-        const DEST_WIDTH = 96;
-        const DEST_HEIGHT = 32;
+        const HEIGHT = 32;
+        const OFFSET = {
+            "t48": 0,
+            "t64": 48,
+            "t72": 112,
+            "t96": 184,
+            "d80n": 0,
+            "d80w": 800,
+            "d96_24": 1600,
+            "d96n": 2560,
+            "d96n_old": 3520,
+            "d96w": 4480,
+            "d96w_old": 5440,
+            "d112n": 6400,
+            "d112w": 7520,
+        };
         const SCALE = 5;
-        let Type = new LedDisplay("t", "./西武_方向幕.png", TYPE_WIDTH, TYPE_HEIGHT, 0, 32, SCALE);
-        let Dest = new LedDisplay("d", "./西武_方向幕.png", DEST_WIDTH, DEST_HEIGHT, 96, 32, SCALE);
+
+        const types = [
+            new LedDisplay("40000-front-type", "./led.png", 64, HEIGHT, OFFSET["t64"], 0, SCALE),
+            new LedDisplay("40000-side-type",  "./led.png", 48, HEIGHT, OFFSET["t48"], 0, SCALE),
+            new LedDisplay("30000-front-type", "./led.png", 72, HEIGHT, OFFSET["t72"], 0, SCALE),
+            new LedDisplay("30000-side-type",  "./led.png", 48, HEIGHT, OFFSET["t48"], 0, SCALE),
+        ]; 
+        const dests = [
+            new LedDisplay("40000-front-dest", "./dest.png", 96, HEIGHT, OFFSET["d96n"], 0, SCALE),
+            new LedDisplay("40000-side-dest",  "./dest.png", 80, HEIGHT, OFFSET["d80n"], 0, SCALE),
+            new LedDisplay("30000-front-dest", "./dest.png", 112, HEIGHT, OFFSET["d112n"], 0, SCALE),
+            new LedDisplay("30000-side-dest",  "./dest.png", 96, HEIGHT, OFFSET["d96n"], 0, SCALE),
+        ];
+
+        /* const type48 = new LedDisplay("t48", "./led.png", 48, HEIGHT, 0, 0, SCALE);
+        const type64 = new LedDisplay("t64", "./led.png", 64, HEIGHT, 48, 0, SCALE);
+        const type96 = new LedDisplay("t96", "./led.png", 96, HEIGHT, 112, 0, SCALE);
+        const dest80 = new LedDisplay("d80", "./led.png", 80, HEIGHT, 208, 0, SCALE);
+        const dest96a = new LedDisplay("d96a", "./led.png", 96, HEIGHT, 1008, 0, SCALE);
+        const dest96b = new LedDisplay("d96b", "./led.png", 96, HEIGHT, 1968, 0, SCALE);
+        const dest120 = new LedDisplay("d120", "./led.png", 120, HEIGHT, 2928, 0, SCALE); */
+
 
         document.getElementById("type-select").onchange = (event) => {
             let typeId = Number.parseInt(document.getElementById("type-select").value);
-            Type.update(0, typeId);
+            types.forEach(t => t.update(0, typeId));
         }
         document.getElementById("dest-select").onchange = (event) => {
             let destIdX = Number.parseInt(document.getElementById("dest-select").value.substring(0, 1));
             let destIdY = Number.parseInt(document.getElementById("dest-select").value.substring(1));
-            Dest.update(destIdX, destIdY);
+            dests.forEach(t => t.update(destIdX, destIdY));
         }
     </script>
 </body>
